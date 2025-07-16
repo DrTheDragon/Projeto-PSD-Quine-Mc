@@ -80,21 +80,5 @@ public class FuncoesPSD {
 					}
 		return valoresVdd;
 	}
-		
-		
-	
-		
-		public static void main (String[] args) {
-			int rows = contaLinha ("ex_and.pla");
-			String [] linha = lerArquivo ("ex_and.pla", rows);
-			int [] inOut = inOutArquivo(linha);
-			int [] valVdd = funcValoresVdd (linha, inOut[0], rows);
-			for (int i =0; i < valVdd.length; i++){
-			System.out.print (valVdd[i] + " ");
 	}
-	}
-	
-	
-
-}
 
