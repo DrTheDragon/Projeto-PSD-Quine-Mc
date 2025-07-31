@@ -36,49 +36,24 @@ public class CalcBin{
 		return grupoList;
 	}
 
-	public static String combina(String a, String b) {
-        if (a.length() != b.length()) return null;
-
+    public static String combina(String a, String b) {
         int dif = 0;
-        StringBuilder result = new StringBuilder();
+        StringBuilder resultado = new StringBuilder();
 
         for (int i = 0; i < a.length(); i++) {
             if (a.charAt(i) != b.charAt(i)) {
+                resultado.append('-');
                 dif++;
-                result.append('-');
             } else {
-                result.append(a.charAt(i));
+                resultado.append(a.charAt(i));
             }
         }
 
         if (dif == 1) {
-            return result.toString();
+            return resultado.toString();
         } else {
             return null;
         }
-    }
-
-    public static List<String> combinaGrupos(String[][] grupos) {
-        List<String> combinados = new ArrayList<>();
-        int numGrupos = grupos.length;
-
-        for (int i = 0; i < numGrupos - 1; i++) {
-            for (int j = 0; j < grupos[i].length; j++) {
-                String termo1 = grupos[i][j];
-                if (termo1 == null) continue;
-
-                for (int k = 0; k < grupos[i + 1].length; k++) {
-                    String termo2 = grupos[i + 1][k];
-                    if (termo2 == null) continue;
-
-                    String combinado = combina(termo1, termo2);
-                    if (combinado != null && !combinados.contains(combinado)) {
-                        combinados.add(combinado);
-                    }
-                }
-            }
-        }
-        return combinados;
     }
 
     public static List<String> geraImplicantes(String[] mintermos) {
@@ -87,9 +62,8 @@ public class CalcBin{
         Set<String> combinados = new HashSet<>();
 
         for (int m = 0; m < mintermos.length; m++) {
-    termos.add(mintermos[m]);
-	}
-
+            termos.add(mintermos[m]);
+        }
 
         for (int i = 0; i < termos.size(); i++) {
             boolean combinado = false;
@@ -108,7 +82,35 @@ public class CalcBin{
         implicantes.addAll(combinados);
         return implicantes;
     }
-	
 
+	public static String geraExpressao(List<String> implicantes) {
+    StringBuilder expressao = new StringBuilder();
+
+    for (int i = 0; i < implicantes.size(); i++) {
+        String implicante = implicantes.get(i);
+        if (i > 0) {
+            expressao.append(" + ");
+        }
+
+        for (int j = 0; j < implicante.length(); j++) {
+            char bit = implicante.charAt(j);
+
+            String variavel;
+            if (j < 26) {
+                variavel = "" + (char) ('A' + j); 
+            } else {
+                variavel = "" + (char) ('A' + (j % 26)) + (j / 26);  
+            }
+
+            if (bit == '1') {
+                expressao.append(variavel);
+            } else if (bit == '0') {
+                expressao.append(variavel).append("'");
+            }
+        }
+    }
+
+    return expressao.toString();
+}
 }
 
