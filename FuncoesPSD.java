@@ -66,7 +66,7 @@ public class FuncoesPSD {
 			first = lista[i].substring(0,1);
 			if (first.equals("0")|| first.equals("1")){
 				last = lista[i].substring (in);
-				value = Integer.parseInt (last);
+				value = Integer.parseInt (last.trim());
 				if (value == 1){
 					valoresVddI[j] = cont;
 					j++;
@@ -79,6 +79,27 @@ public class FuncoesPSD {
 					valoresVdd[i] = valoresVddI[i];
 					}
 		return valoresVdd;
+	}
+
+			
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String nomeArquivo = sc.nextLine();
+
+		int rows = contaLinha(nomeArquivo);
+		String[] linha = lerArquivo(nomeArquivo, rows);
+		int[] inOut = inOutArquivo(linha); 
+		int[] valVdd = funcValoresVdd(linha, inOut[0], rows); 
+		int numVariaveis = inOut[0];
+
+		List<String> primos = CalcBin.simplifica(valVdd, numVariaveis);
+		List<String> essenciais = CalcBin.filtraEssenciais(primos, valVdd);
+		String expressao = CalcBin.geraExpressao(essenciais);
+
+		System.out.println("Expressão booleana simplificada:");
+		System.out.println(expressao);
+		
+		sc.close();
 	}
 	}
 
