@@ -57,7 +57,7 @@ public class FuncoesPSD {
 			return inOut;
 		}
 		
-		static public int [] funcValoresVdd (String lista [], int in, int numLinhas){
+		static public int [] funcValoresVdd (String lista [], int in, int escolhaSaida ,int numLinhas){
 			String first, last;
 			int value, cont =0, j=0;
 			int [] valoresVddI = new int [numLinhas]; 
@@ -65,7 +65,7 @@ public class FuncoesPSD {
 			lista[i] = lista[i].replaceAll("\\s+", "");
 			first = lista[i].substring(0,1);
 			if (first.equals("0")|| first.equals("1")){
-				last = lista[i].substring (in);
+				last = lista[i].substring (in+escolhaSaida);
 				value = Integer.parseInt (last.trim());
 				if (value == 1){
 					valoresVddI[j] = cont;
@@ -79,27 +79,7 @@ public class FuncoesPSD {
 					valoresVdd[i] = valoresVddI[i];
 					}
 		return valoresVdd;
-	}
-
-			
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		String nomeArquivo = sc.nextLine();
-
-		int rows = contaLinha(nomeArquivo);
-		String[] linha = lerArquivo(nomeArquivo, rows);
-		int[] inOut = inOutArquivo(linha); 
-		int[] valVdd = funcValoresVdd(linha, inOut[0], rows); 
-		int numVariaveis = inOut[0];
-
-		List<String> primos = CalcBin.simplifica(valVdd, numVariaveis);
-		List<String> essenciais = CalcBin.filtraEssenciais(primos, valVdd);
-		String expressao = CalcBin.geraExpressao(essenciais);
-
-		System.out.println("Expressão booleana simplificada:");
-		System.out.println(expressao);
-		
-		sc.close();
-	}
+	}		
+	
 	}
 

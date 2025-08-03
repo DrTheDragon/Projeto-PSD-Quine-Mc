@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 
+
 public class CalcBin {
 
     public static String[] transformaBin(int[] numVdd) {
@@ -226,9 +227,5 @@ public class CalcBin {
 
         return expressao.toString();
     }
-}
-
-    return expressao.toString();
-}
 }
 
