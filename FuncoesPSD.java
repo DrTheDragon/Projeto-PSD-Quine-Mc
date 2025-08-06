@@ -41,7 +41,7 @@ public class FuncoesPSD {
 			int inOut[] = new int [2];
 			String firsts;
 			for (int i =0; i < lista.length; i++){
-				lista[i] = lista[i].replaceAll ("\\s+", "");
+				lista[i] = lista[i].trim().replaceAll ("\\s+", " ");
 				firsts = lista[i].substring (0,2);
 				if (firsts.equals(".i")){
 					String inS = lista[i].substring (3);
@@ -62,11 +62,11 @@ public class FuncoesPSD {
 			int value, cont =0, j=0;
 			int [] valoresVddI = new int [numLinhas]; 
 			for (int i =0; i < lista.length; i++){
-			lista[i] = lista[i].replaceAll("\\s+", "");
+			lista[i] = lista[i].trim().replaceAll("\\s+", "");
 			first = lista[i].substring(0,1);
 			if (first.equals("0")|| first.equals("1")){
-				last = lista[i].substring (in+escolhaSaida);
-				value = Integer.parseInt (last.trim());
+				last = lista[i].substring (in+escolhaSaida, in+escolhaSaida+1);
+				value = Integer.parseInt (last);
 				if (value == 1){
 					valoresVddI[j] = cont;
 					j++;
@@ -79,7 +79,6 @@ public class FuncoesPSD {
 					valoresVdd[i] = valoresVddI[i];
 					}
 		return valoresVdd;
-	}		
-	
+	}
 	}
 
